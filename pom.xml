@@ -7,13 +7,6 @@
 		<module>ewm-stats-service</module>
 		<module>ewm-main-service</module>
 	</modules>
-	<dependencies>
-		<dependency>
-			<artifactId>spring-boot-autoconfigure</artifactId>
-			<groupId>org.springframework.boot</groupId>
-			<version>3.0.4</version>
-		</dependency>
-	</dependencies>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
