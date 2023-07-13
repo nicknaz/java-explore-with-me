@@ -1,7 +1,6 @@
 package com.ewm.server.visit.model;
 
 import com.ewm.server.visit.annotation.Ip;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import javax.persistence.*;
