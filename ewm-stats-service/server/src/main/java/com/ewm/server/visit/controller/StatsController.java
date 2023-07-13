@@ -23,7 +23,7 @@ public class StatsController {
     }
 
     @PostMapping("/hit")
-    public HttpStatus createHit(@RequestBody StatsHitDto dto){
+    public HttpStatus createHit(@RequestBody StatsHitDto dto) {
         log.info("PostMapping /hit with uri = {}", dto.getUri());
         statsService.create(dto);
         return HttpStatus.CREATED;
@@ -33,7 +33,7 @@ public class StatsController {
     public List<StatsResponseDto> getStats(@RequestParam LocalDateTime start,
                                            @RequestParam LocalDateTime end,
                                            @RequestParam(required = false) String[] uris,
-                                           @RequestParam(defaultValue = "false") Boolean unique){
+                                           @RequestParam(defaultValue = "false") Boolean unique) {
         log.info("GetMapping /stats between {} and {}", start, end);
         return statsService.getStats(start, end, Arrays.asList(uris), unique);
     }

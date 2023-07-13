@@ -9,9 +9,9 @@ public class IpValidator implements ConstraintValidator<Ip, String> {
 
     @Override
     public boolean isValid(String ip, ConstraintValidatorContext constraintValidatorContext) {
-        String IPADDRESS_PATTERN =
+        String ipAdressPattern =
                 "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
-        Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
+        Pattern pattern = Pattern.compile(ipAdressPattern);
         Matcher matcher = pattern.matcher(ip);
         return matcher.find();
     }

@@ -9,7 +9,9 @@ import java.util.List;
 
 @Service
 public interface StatsService {
+
     void create(StatsHitDto dto);
+
     List<StatsResponseDto> getStats(LocalDateTime start,
                                     LocalDateTime end,
                                     List<String> uris,
