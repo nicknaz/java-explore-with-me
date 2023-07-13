@@ -6,8 +6,6 @@
         <artifactId>ewm-stats-service</artifactId>
         <groupId>ru.practicum</groupId>
         <version>0.0.1-SNAPSHOT</version>
-
-        <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.ewm</groupId>
     <artifactId>server</artifactId>
