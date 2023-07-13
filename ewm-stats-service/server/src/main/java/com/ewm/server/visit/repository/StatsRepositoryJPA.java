@@ -16,7 +16,7 @@ public interface StatsRepositoryJPA extends JpaRepository<StatsHit, Long> {
             "case when ?4 = true then count(distinct s.ip) else count(s.ip) end) " +
             " from StatsHit as s " +
             "where s.timestamp between ?1 and ?2 " +
-            "and (((?3) is null) or (s.uri in (?3))) " +
+            "and (s.uri in (?3) or (?3) is null) " +
             "group by s.app, s.uri " +
             "order by count(s.ip) desc")
     List<StatsResponse> findByDate(LocalDateTime start,
