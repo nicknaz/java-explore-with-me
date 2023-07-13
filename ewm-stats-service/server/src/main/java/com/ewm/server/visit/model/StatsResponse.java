@@ -12,10 +12,10 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @Builder
 public class StatsResponse {
-    private String app = "ewm-main-service";
+    private String app;
 
     @NotBlank
     private String uri;
 
-    private int hits;
+    private long hits;
 }
