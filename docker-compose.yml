@@ -18,7 +18,7 @@ services:
       - /var/lib/postgresql/data/
     container_name: db_stats
     ports:
-      - "6540:5432"
+      - "6541:5432"
     environment:
       - POSTGRES_DB=ewm-stats
       - POSTGRES_USER=root
@@ -42,7 +42,7 @@ services:
       - /var/lib/postgresql/data/
     container_name: db_main
     ports:
-      - "6550:5432"
+      - "6542:5432"
     environment:
       - POSTGRES_DB=ewm-main
       - POSTGRES_USER=root
