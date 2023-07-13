@@ -1,7 +1,7 @@
 version: '3.1'
 services:
   stats-server:
-    build: ewm-stats-service/server
+    build: ./ewm-stats-service/server
     container_name: stats-server
     ports:
       - "9090:9090"
@@ -25,7 +25,7 @@ services:
       - POSTGRES_PASSWORD=root
 
   ewm-service:
-    build: ewm-main-service
+    build: ./ewm-main-service
     container_name: main-service
     ports:
       - "8080:8080"
