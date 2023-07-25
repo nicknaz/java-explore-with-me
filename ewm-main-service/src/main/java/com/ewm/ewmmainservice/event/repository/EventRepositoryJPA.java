@@ -29,7 +29,7 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
                             LocalDateTime rangeEnd, Pageable page);
 
     @Query("select ev from Event as ev " +
-            "where (lower(ev.annotation) in :text or lower(ev.description) in :text or :text is null) " +
+            "where (lower(ev.annotation) like :text or lower(ev.description) like :text or :text is null) " +
             "and (ev.category in :categories or :categories is null) " +
             "or (ev.paid = :paid or :paid is null) " +
             "and (ev.eventDate >= :rangeStart or :rangeStart is null) " +
