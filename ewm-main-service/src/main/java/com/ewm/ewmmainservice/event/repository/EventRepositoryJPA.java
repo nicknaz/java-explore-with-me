@@ -42,7 +42,7 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
                                  @Param("rangeEnd") LocalDateTime rangeEnd, @Param("onlyAvailable") Boolean onlyAvailable,
-                                 @Param("sortViews") Boolean sortViews, Pageable page);
+                                 @Param("sortViews") Boolean sortViews);
 
     List<Event> findEventsByCategory(Category category);
 }
