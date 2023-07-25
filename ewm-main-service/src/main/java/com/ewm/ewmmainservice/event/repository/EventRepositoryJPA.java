@@ -18,15 +18,15 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
     List<Event> findAllByInitiator(User user, Pageable page);
 
     @Query(value = "select ev from Event as ev " +
-            "where ((?1) is null or ev.initiator in (?1)) " +
-            "and ((?2) is null or ev.state = (?2)) " +
-            "and ((?3) is null or ev.category in (?3)) " +
-            "and ((?4) is null or ev.eventDate >= (?4)) " +
-            "and ((?5) is null or ev.eventDate <= (?5)) " +
+            "where (cast(:users as int) is null or ev.initiator in :users) " +
+            "and (cast(:states as text) is null or ev.state = :states) " +
+            "and (cast(:categories as int) is null or ev.category in :categories) " +
+            "and (cast(:rangeStart as timestamp) is null or ev.eventDate >= :rangeStart) " +
+            "and (cast(:rangeEnd as timestamp) is null or ev.eventDate <= :rangeEnd) " +
             "order by ev.id desc")
-    List<Event> findByAdmin(List<User> users, EventState states,
-                            List<Category> categories, LocalDateTime rangeStart,
-                            LocalDateTime rangeEnd, Pageable page);
+    List<Event> findByAdmin(@Param("users") List<User> users, @Param("states") EventState states,
+                            @Param("categories") List<Category> categories, @Param("rangeStart") LocalDateTime rangeStart,
+                            @Param("rangeEnd") LocalDateTime rangeEnd, Pageable page);
 
     @Query(value = "select ev from Event as ev " +
             "where (cast(:text as text) is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
@@ -39,7 +39,7 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
                                  @Param("rangeEnd") LocalDateTime rangeEnd, @Param("onlyAvailable") Boolean onlyAvailable,
-                                 @Param("sortViews") Boolean sortViews);
+                                 @Param("sortViews") Boolean sortViews, Pageable page);
 
     List<Event> findEventsByCategory(Category category);
 }

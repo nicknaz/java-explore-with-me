@@ -58,7 +58,8 @@ public class PublicEventServiceImpl implements PublicEventService {
                 rangeStart != null ? LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
                 rangeEnd != null ? LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
                 onlyAvailable != null ? onlyAvailable : false,
-                (sort != null && sort.equals(SortType.VIEWS)) ? true : false).stream()
+                (sort != null && sort.equals(SortType.VIEWS)) ? true : false,
+                page).stream()
                 .map(EventMapper::toEventFullDto)
                 .collect(Collectors.toList());
 
