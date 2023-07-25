@@ -11,13 +11,10 @@ import com.ewm.ewmmainservice.event.repository.LocationRepositoryJPA;
 import com.ewm.ewmmainservice.exception.BadRequestException;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
 import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import model.StatsHitDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.practicum.StatsClient;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
