@@ -27,6 +27,7 @@ public class EventMapper {
                 .confirmedRequest(0)
                 .initiator(user)
                 .location(location)
+                .views(0L)
                 .state(EventState.PENDING)
                 .title(dto.getTitle())
                 .build();
