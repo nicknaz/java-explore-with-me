@@ -18,7 +18,6 @@ import java.util.List;
 public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
     List<Event> findAllByInitiator(User user, Pageable page);
 
-    @Transactional
     @Query(value = "select ev from Event as ev " +
             "where ((?1) is null or ev.initiator in (?1)) " +
             "and ((?2) is null or ev.state = (?2)) " +
@@ -30,14 +29,13 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
                             List<Category> categories, LocalDateTime rangeStart,
                             LocalDateTime rangeEnd, Pageable page);
 
-    @Transactional
     @Query(value = "select ev from Event as ev " +
-            "where (:text is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
-            "and (:categories is null or ev.category in :categories) " +
-            "or (:paid is null or ev.paid = :paid) " +
-            "and (:rangeStart is null or ev.eventDate >= :rangeStart) " +
-            "and (:rangeEnd is null or ev.eventDate <= :rangeEnd) " +
-            "and (:onlyAvailable is null or (ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false) " +
+            "where (cast(:text as text) is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
+            "and (cast(:categories as timestamp) is null or ev.category in :categories) " +
+            "or (cast(:paid as boolean) is null or ev.paid = :paid) " +
+            "and (cast(:rangeStart as timestamp) is null or ev.eventDate >= :rangeStart) " +
+            "and (cast(:rangeEnd as timestamp) is null or ev.eventDate <= :rangeEnd) " +
+            "and ((ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false) " +
             "order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc")
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
