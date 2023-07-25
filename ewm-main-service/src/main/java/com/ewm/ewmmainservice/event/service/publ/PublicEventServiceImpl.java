@@ -11,10 +11,12 @@ import com.ewm.ewmmainservice.event.repository.LocationRepositoryJPA;
 import com.ewm.ewmmainservice.exception.BadRequestException;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
 import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.practicum.StatsClient;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -24,13 +26,13 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class PublicEventServiceImpl implements PublicEventService {
     private EventRepositoryJPA eventRepositoryJPA;
     private UserRepositoryJPA userRepositoryJPA;
     private CategoryRepositoryJPA categoryRepositoryJPA;
     private LocationRepositoryJPA locationRepositoryJPA;
-    //private StatsClient statsClient;
+    private StatsClient statsClient;
 
     @Autowired
     public PublicEventServiceImpl(EventRepositoryJPA eventRepositoryJPA,
@@ -63,12 +65,12 @@ public class PublicEventServiceImpl implements PublicEventService {
                 .map(EventMapper::toEventFullDto)
                 .collect(Collectors.toList());
 
-        /*statsClient.create(StatsHitDto.builder()
+        statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
-                .build());*/
+                .build());
         return result;
     }
 
@@ -84,12 +86,12 @@ public class PublicEventServiceImpl implements PublicEventService {
         event.setViews(event.getViews() + 1);
         eventRepositoryJPA.save(event);
 
-        /*statsClient.create(StatsHitDto.builder()
+        statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
-                .build());*/
+                .build());
         return eventFullDto;
     }
 }
