@@ -17,6 +17,7 @@ import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@Transactional(readOnly = true)
 public class PrivateRequestServiceImpl implements PrivateRequestService {
     private EventRepositoryJPA eventRepositoryJPA;
     private UserRepositoryJPA userRepositoryJPA;
@@ -46,6 +48,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
 
 
     @Override
+    @Transactional
     public RequestDto create(Long userId, Long eventId) {
         log.info("Создание запроса с userId = {} и eventId = {}", userId, eventId);
 

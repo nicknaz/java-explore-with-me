@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 public class PrivateRequestCreatorServiceImpl implements PrivateRequestCreatorService {
     private EventRepositoryJPA eventRepositoryJPA;
     private UserRepositoryJPA userRepositoryJPA;

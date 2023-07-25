@@ -20,12 +20,14 @@ import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class PrivateEventServiceImpl implements PrivateEventService {
     private EventRepositoryJPA eventRepositoryJPA;
     private UserRepositoryJPA userRepositoryJPA;
@@ -45,6 +47,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
 
 
     @Override
+    @Transactional
     public EventFullDto create(Long userId, EventRequestCreateDto eventRequestCreateDto) {
         Category category = categoryRepositoryJPA.findById(eventRequestCreateDto.getCategory())
                 .orElseThrow(() -> new NotFoundedException("Категория не найден"));
@@ -82,6 +85,7 @@ public class PrivateEventServiceImpl implements PrivateEventService {
     }
 
     @Override
+    @Transactional
     public EventFullDto patchEvent(Long userId, Long eventId, UpdateEventUserRequestDto updateEventUserRequestDto) {
         Event event = eventRepositoryJPA.findById(eventId)
                 .orElseThrow(() -> new NotFoundedException("Событие не найдено"));

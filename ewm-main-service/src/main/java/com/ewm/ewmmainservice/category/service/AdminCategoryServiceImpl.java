@@ -9,8 +9,10 @@ import com.ewm.ewmmainservice.exception.ConflictException;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class AdminCategoryServiceImpl implements AdminCategoryService {
     private CategoryRepositoryJPA categoryRepositoryJPA;
     private EventRepositoryJPA eventRepositoryJPA;
@@ -24,6 +26,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
 
 
     @Override
+    @Transactional
     public CategoryDto create(CategoryDto categoryDto) {
         if (categoryRepositoryJPA.findCategoriesByName(categoryDto.getName()) != null) {
             throw new ConflictException("Категория с таким названием уже существует!");
@@ -32,6 +35,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     }
 
     @Override
+    @Transactional
     public CategoryDto patch(Long catId, CategoryDto categoryDto) {
         Category category = categoryRepositoryJPA.findById(catId)
                 .orElseThrow(() -> new NotFoundedException("Категория не найдена"));

@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 public class AdminEventServiceImpl implements AdminEventService {
 
     private EventRepositoryJPA eventRepositoryJPA;

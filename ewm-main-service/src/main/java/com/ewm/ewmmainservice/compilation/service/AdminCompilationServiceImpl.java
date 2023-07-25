@@ -10,8 +10,10 @@ import com.ewm.ewmmainservice.event.repository.EventRepositoryJPA;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
 public class AdminCompilationServiceImpl implements AdminCompilationService {
     private CompilationRepositoryJPA compilationRepositoryJPA;
     private EventRepositoryJPA eventRepositoryJPA;
@@ -24,6 +26,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
 
 
     @Override
+    @Transactional
     public CompilationDto create(CompilationRequestDto compilationRequestDto) {
         Compilation compilation = CompilationMapper.toCompilation(compilationRequestDto,
                 compilationRequestDto.getEvents() != null ? eventRepositoryJPA.findAllById(compilationRequestDto.getEvents()) : null);
@@ -31,6 +34,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
     }
 
     @Override
+    @Transactional
     public CompilationDto patch(Long compId, CompilationRequestUpdateDto updateCompilationRequestDto) {
         Compilation compilation = compilationRepositoryJPA.findById(compId)
                 .orElseThrow(() -> new NotFoundedException("Подборка не найдена"));
