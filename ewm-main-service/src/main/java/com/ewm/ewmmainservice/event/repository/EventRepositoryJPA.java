@@ -18,11 +18,11 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
     List<Event> findAllByInitiator(User user, Pageable page);
 
     @Query(value = "select ev from Event as ev " +
-            "where (ev.initiator in (?1) or (?1) is null) " +
-            "and (ev.state = (?2) or (?2) is null) " +
-            "and (ev.category in (?3) or (?3) is null) " +
-            "and (ev.eventDate >= (?4) or (?4) is null) " +
-            "and (ev.eventDate <= (?5) or (?5) is null) " +
+            "where ((?1) is null or ev.initiator in (?1)) " +
+            "and ((?2) is null or ev.state = (?2)) " +
+            "and ((?3) is null or ev.category in (?3)) " +
+            "and ((?4) is null or ev.eventDate >= (?4)) " +
+            "and ((?5) is null or ev.eventDate <= (?5)) " +
             "order by ev.id desc")
     List<Event> findByAdmin(List<User> users, EventState states,
                             List<Category> categories, LocalDateTime rangeStart,
