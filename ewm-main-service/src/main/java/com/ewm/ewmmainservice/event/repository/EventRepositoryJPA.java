@@ -29,12 +29,12 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
                             LocalDateTime rangeEnd, Pageable page);
 
     @Query("select ev from Event as ev " +
-            "where (lower(ev.annotation) like :text or lower(ev.description) like :text or :text is null) " +
-            "and (ev.category in :categories or :categories is null) " +
-            "or (ev.paid = :paid or :paid is null) " +
-            "and (ev.eventDate >= :rangeStart or :rangeStart is null) " +
-            "and (ev.eventDate <= :rangeEnd or :rangeEnd is null) " +
-            "and ((ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false or :onlyAvailable is null) " +
+            "where (:text is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
+            "and (:categories is null or ev.category in :categories) " +
+            "or (:paid is null or ev.paid = :paid) " +
+            "and (:rangeStart is null or ev.eventDate >= :rangeStart) " +
+            "and (:rangeEnd is null or ev.eventDate <= :rangeEnd) " +
+            "and (:onlyAvailable is null or (ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false) " +
             "order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc")
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
