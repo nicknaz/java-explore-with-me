@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@Transactional(readOnly = true)
 //@RequiredArgsConstructor
 public class PublicEventServiceImpl implements PublicEventService {
     private EventRepositoryJPA eventRepositoryJPA;

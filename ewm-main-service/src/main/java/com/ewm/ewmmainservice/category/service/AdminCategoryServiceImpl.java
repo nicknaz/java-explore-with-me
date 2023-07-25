@@ -50,6 +50,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     }
 
     @Override
+    @Transactional
     public void delete(Long catId) {
         if (eventRepositoryJPA.findEventsByCategory(categoryRepositoryJPA.findById(catId)
                 .orElseThrow(() -> new NotFoundedException("Категория не найдена"))).size() != 0) {
