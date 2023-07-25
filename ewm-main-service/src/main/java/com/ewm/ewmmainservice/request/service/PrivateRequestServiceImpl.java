@@ -76,7 +76,7 @@ public class PrivateRequestServiceImpl implements PrivateRequestService {
             && requestRepositoryJPA.findAllByEvent(event).size() >= event.getParticipantLimit()) {
             log.info("Превышен лимит заявок, доступно {}, отправлено {}",
                     event.getParticipantLimit(),
-                    requestRepositoryJPA.findAllByEvent(event).size() );
+                    requestRepositoryJPA.findAllByEvent(event).size());
             throw new ConflictException("Превышен лимит заявок");
         }
 

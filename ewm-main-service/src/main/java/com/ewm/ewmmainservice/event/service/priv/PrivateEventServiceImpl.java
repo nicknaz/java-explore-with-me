@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PrivateEventServiceImpl implements PrivateEventService{
+public class PrivateEventServiceImpl implements PrivateEventService {
     private EventRepositoryJPA eventRepositoryJPA;
     private UserRepositoryJPA userRepositoryJPA;
     private CategoryRepositoryJPA categoryRepositoryJPA;

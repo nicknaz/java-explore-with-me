@@ -48,7 +48,7 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     @Override
     public void delete(Long catId) {
         if (eventRepositoryJPA.findEventsByCategory(categoryRepositoryJPA.findById(catId)
-                .orElseThrow(() -> new NotFoundedException("Категория не найдена"))).size() != 0 ) {
+                .orElseThrow(() -> new NotFoundedException("Категория не найдена"))).size() != 0) {
             throw new ConflictException("Невозможно удалить категорию, к которой привязаны события");
         }
         categoryRepositoryJPA.deleteById(catId);

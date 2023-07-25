@@ -19,7 +19,7 @@ public class EventMapper {
                 .annotation(dto.getAnnotation())
                 .category(category)
                 .createdOn(LocalDateTime.now())
-                .paid(dto.getPaid()!= null ? dto.getPaid() : false)
+                .paid(dto.getPaid() != null ? dto.getPaid() : false)
                 .participantLimit(dto.getParticipantLimit() != null ? dto.getParticipantLimit() : 0)
                 .requestModeration(dto.getRequestModeration() != null ? dto.getRequestModeration() : true)
                 .description(dto.getDescription())

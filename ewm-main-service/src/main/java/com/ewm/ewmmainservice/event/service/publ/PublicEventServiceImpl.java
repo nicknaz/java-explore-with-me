@@ -55,7 +55,7 @@ public class PublicEventServiceImpl implements PublicEventService {
         }
         log.info(categoryRepositoryJPA.findAllById(categories).toString());
         List<EventFullDto> result = eventRepositoryJPA.findByUserSearch(
-                text != null ? "%"+text+"%" : null,
+                text != null ? "%" + text + "%" : null,
                 categoryRepositoryJPA.findAllById(categories),
                 paid,
                 rangeStart != null ? LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,

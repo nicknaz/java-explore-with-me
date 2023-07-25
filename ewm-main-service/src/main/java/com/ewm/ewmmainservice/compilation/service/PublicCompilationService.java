@@ -9,5 +9,6 @@ import java.util.List;
 @Service
 public interface PublicCompilationService {
     CompilationDto getCompilation(Long compId);
+
     List<CompilationDto> getCompilationList(Boolean pinned, Pageable page);
 }

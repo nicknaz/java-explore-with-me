@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminCompilationServiceImpl implements AdminCompilationService{
+public class AdminCompilationServiceImpl implements AdminCompilationService {
     private CompilationRepositoryJPA compilationRepositoryJPA;
     private EventRepositoryJPA eventRepositoryJPA;
 

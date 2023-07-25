@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
-public class AdminUserServiceImpl implements AdminUserService{
+public class AdminUserServiceImpl implements AdminUserService {
     private UserRepositoryJPA userRepository;
 
     @Autowired

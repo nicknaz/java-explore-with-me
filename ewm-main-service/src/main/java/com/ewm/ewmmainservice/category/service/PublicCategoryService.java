@@ -9,5 +9,6 @@ import java.util.List;
 @Service
 public interface PublicCategoryService {
     List<CategoryDto> getCategoryList(Pageable page);
+
     CategoryDto getCategory(Long catId);
 }

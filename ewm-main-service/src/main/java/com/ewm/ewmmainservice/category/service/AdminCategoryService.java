@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 public interface AdminCategoryService {
 
     CategoryDto create(CategoryDto categoryDto);
+
     CategoryDto patch(Long catId, CategoryDto categoryDto);
+
     void delete(Long catId);
 }
