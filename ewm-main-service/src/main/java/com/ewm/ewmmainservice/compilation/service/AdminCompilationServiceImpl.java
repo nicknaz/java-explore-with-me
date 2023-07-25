@@ -56,6 +56,7 @@ public class AdminCompilationServiceImpl implements AdminCompilationService {
     }
 
     @Override
+    @Transactional
     public void delete(Long compId) {
         compilationRepositoryJPA.deleteById(compId);
     }
