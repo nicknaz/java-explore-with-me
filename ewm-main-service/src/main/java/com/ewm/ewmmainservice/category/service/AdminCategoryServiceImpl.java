@@ -35,8 +35,8 @@ public class AdminCategoryServiceImpl implements AdminCategoryService {
     public CategoryDto patch(Long catId, CategoryDto categoryDto) {
         Category category = categoryRepositoryJPA.findById(catId)
                 .orElseThrow(() -> new NotFoundedException("Категория не найдена"));
-        if (categoryRepositoryJPA.findCategoriesByName(categoryDto.getName()) != null
-        && categoryRepositoryJPA.findCategoriesByName(categoryDto.getName()).getId() != catId) {
+        Category categoryByName = categoryRepositoryJPA.findCategoriesByName(categoryDto.getName());
+        if (categoryByName != null && !categoryByName.getId().equals(catId)) {
             throw new ConflictException("Категория с таким названием уже существует!");
         }
         if (categoryDto.getName() != null) {
