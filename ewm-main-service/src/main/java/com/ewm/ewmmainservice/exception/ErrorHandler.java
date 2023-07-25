@@ -19,6 +19,20 @@ public class ErrorHandler {
         return Map.of("exception", e.getMessage());
     }
 
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> objectNotFoundedException(final Exception e) {
+        log.debug("Получен статус 500 Not found {}", e.getMessage(), e);
+        return Map.of("exception", e.getMessage());
+    }
+
+    @ExceptionHandler(Throwable.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> objectNotFoundedException(final Throwable e) {
+        log.debug("Получен статус 500 Not found {}", e.getMessage(), e);
+        return Map.of("exception", e.getMessage());
+    }
+
     /*
     @ExceptionHandler(InvalidDateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
