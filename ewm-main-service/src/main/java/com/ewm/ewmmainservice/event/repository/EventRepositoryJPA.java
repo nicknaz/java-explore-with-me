@@ -33,9 +33,9 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
             "and (ev.category in :categories or :categories is null) " +
             "or (ev.paid = :paid or :paid is null) " +
             "and (ev.eventDate >= :rangeStart or :rangeStart is null) " +
-            "and (ev.eventDate <= :rangeEnd or :rangeEnd is null) " +
-            "and ((ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false or :onlyAvailable is null) " +
-            "order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc")
+            "and (ev.eventDate <= :rangeEnd or :rangeEnd is null) ")
+            //"and ((ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false or :onlyAvailable is null) ")
+            //"order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc")
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
                                  @Param("rangeEnd") LocalDateTime rangeEnd, @Param("onlyAvailable") Boolean onlyAvailable,
