@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface StatsRepositoryJPA extends JpaRepository<StatsHit, Long> {
 
-    @Query(value = "select new com.ewm.server.visit.model.StatsResponse(s.app, s.uri, " +
+    @Query(value = "select new ru.practicum.visit.model.StatsResponse(s.app, s.uri, " +
             "case when ?4 = true then count(distinct s.ip) else count(s.ip) end) " +
             " from StatsHit as s " +
             "where s.timestamp between ?1 and ?2 " +
