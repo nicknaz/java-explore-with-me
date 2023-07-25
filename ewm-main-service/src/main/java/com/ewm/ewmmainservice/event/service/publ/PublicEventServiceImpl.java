@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -72,17 +73,22 @@ public class PublicEventServiceImpl implements PublicEventService {
         return result;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public EventFullDto getEvent(Long id, HttpServletRequest request) {
         Event event = eventRepositoryJPA.findById(id)
                 .orElseThrow(() -> new NotFoundedException("Событие не найдено"));
-        EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
-        if (eventFullDto.getState() != EventState.PUBLISHED) {
+
+        if (event.getState() != EventState.PUBLISHED) {
             throw new NotFoundedException("Событие не найдено");
         }
 
         event.setViews(event.getViews() + 1);
         eventRepositoryJPA.save(event);
+
+        EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
+
+
 
 //        statsClient.create(StatsHitDto.builder()
 //                .ip(request.getRemoteAddr())

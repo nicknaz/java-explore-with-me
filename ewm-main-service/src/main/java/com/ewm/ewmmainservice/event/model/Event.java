@@ -20,7 +20,7 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 2000)
+    @Column(length = 3000)
     private String annotation;
 
     @ManyToOne
@@ -40,13 +40,13 @@ public class Event {
     @Column
     private Boolean paid;
 
-    @Column
+    @Column(length = 500)
     private String title;
 
     @Column
     private Long views;
 
-    @Column(length = 7000)
+    @Column(length = 10000)
     private String description;
 
     @Column(name = "created_on")
