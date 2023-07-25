@@ -6,6 +6,7 @@ import com.ewm.ewmmainservice.event.model.EventState;
 import com.ewm.ewmmainservice.user.model.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -17,6 +18,7 @@ import java.util.List;
 public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
     List<Event> findAllByInitiator(User user, Pageable page);
 
+    @Modifying
     @Query(value = "select ev from Event as ev " +
             "where ((?1) is null or ev.initiator in (?1)) " +
             "and ((?2) is null or ev.state = (?2)) " +
@@ -28,6 +30,7 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
                             List<Category> categories, LocalDateTime rangeStart,
                             LocalDateTime rangeEnd, Pageable page);
 
+    @Modifying
     @Query(value = "select ev from Event as ev " +
             "where (:text is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
             "and (:categories is null or ev.category in :categories) " +
