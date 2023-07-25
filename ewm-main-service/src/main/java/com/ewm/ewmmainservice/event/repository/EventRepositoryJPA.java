@@ -23,19 +23,19 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
             "and ((?3) is null or ev.category in (?3)) " +
             "and ((?4) is null or ev.eventDate >= (?4)) " +
             "and ((?5) is null or ev.eventDate <= (?5)) " +
-            "order by ev.id desc")
+            "order by ev.id desc", nativeQuery = true)
     List<Event> findByAdmin(List<User> users, EventState states,
                             List<Category> categories, LocalDateTime rangeStart,
                             LocalDateTime rangeEnd, Pageable page);
 
-    @Query("select ev from Event as ev " +
+    @Query(value = "select ev from Event as ev " +
             "where (:text is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
             "and (:categories is null or ev.category in :categories) " +
             "or (:paid is null or ev.paid = :paid) " +
             "and (:rangeStart is null or ev.eventDate >= :rangeStart) " +
             "and (:rangeEnd is null or ev.eventDate <= :rangeEnd) " +
             "and (:onlyAvailable is null or (ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false) " +
-            "order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc")
+            "order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc", nativeQuery = true)
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
                                  @Param("rangeEnd") LocalDateTime rangeEnd, @Param("onlyAvailable") Boolean onlyAvailable,
