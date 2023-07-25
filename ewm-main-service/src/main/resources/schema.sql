@@ -33,10 +33,10 @@ CREATE TABLE IF NOT EXISTS events(
     title varchar(200) NOT NULL,
     views BIGINT,
     description text NOT NULL,
-    created_on timestamp NOT NULL,
+    created_on timestamp,
     location BIGINT REFERENCES locations(id) ON DELETE CASCADE,
     participant_limit int,
-    published_on timestamp NOT NULL,
+    published_on timestamp,
     request_moderation boolean,
     state varchar(100)
 );
