@@ -51,7 +51,7 @@ public class PublicEventServiceImpl implements PublicEventService {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public List<EventFullDto> getEventsList(String text, List<Long> categories, Boolean paid, String rangeStart,
                                             String rangeEnd, Boolean onlyAvailable, SortType sort, Pageable page,
                                             HttpServletRequest request) {
@@ -80,7 +80,7 @@ public class PublicEventServiceImpl implements PublicEventService {
         return result;
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     @Override
     public EventFullDto getEvent(Long id, HttpServletRequest request) {
         Event event = eventRepositoryJPA.findById(id)
@@ -90,17 +90,17 @@ public class PublicEventServiceImpl implements PublicEventService {
             throw new NotFoundedException("Событие не найдено");
         }
 
-        event.setViews(event.getViews() + 1);
-        eventRepositoryJPA.save(event);
-
-        EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
-
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
                 .build());
+
+        event.setViews(event.getViews() + 1);
+        eventRepositoryJPA.save(event);
+
+        EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         return eventFullDto;
     }
 }
