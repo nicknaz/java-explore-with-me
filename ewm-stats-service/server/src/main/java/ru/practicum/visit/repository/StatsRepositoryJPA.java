@@ -1,10 +1,10 @@
 package ru.practicum.visit.repository;
 
-import ru.practicum.visit.model.StatsHit;
-import ru.practicum.visit.model.StatsResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import ru.practicum.visit.model.StatsHit;
+import ru.practicum.visit.model.StatsResponse;
 
 import java.time.LocalDateTime;
 import java.util.List;

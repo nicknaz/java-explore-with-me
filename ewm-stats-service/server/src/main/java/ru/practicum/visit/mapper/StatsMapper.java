@@ -1,9 +1,9 @@
 package ru.practicum.visit.mapper;
 
-import ru.practicum.visit.model.StatsHit;
-import ru.practicum.visit.model.StatsResponse;
 import ru.practicum.StatsHitDto;
 import ru.practicum.StatsResponseDto;
+import ru.practicum.visit.model.StatsHit;
+import ru.practicum.visit.model.StatsResponse;
 
 public class StatsMapper {
     public static StatsHitDto toStatsHitDto(StatsHit hit) {

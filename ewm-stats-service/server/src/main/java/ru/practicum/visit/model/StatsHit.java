@@ -1,7 +1,7 @@
 package ru.practicum.visit.model;
 
-import ru.practicum.visit.annotation.Ip;
 import lombok.*;
+import ru.practicum.visit.annotation.Ip;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

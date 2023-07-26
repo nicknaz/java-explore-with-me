@@ -1,8 +1,8 @@
 package ru.practicum.visit.service;
 
+import org.springframework.stereotype.Service;
 import ru.practicum.StatsHitDto;
 import ru.practicum.StatsResponseDto;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;

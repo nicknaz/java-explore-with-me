@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsClient;
-import ru.practicum.StatsHitDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
