@@ -58,10 +58,10 @@ public class PublicEventServiceImpl implements PublicEventService {
         if (categories != null && categoryRepositoryJPA.findAllById(categories).size() == 0) {
             throw new BadRequestException("Категории не найдены!");
         }
-        log.info(categoryRepositoryJPA.findAllById(categories).toString());
+        log.info("check1");
         List<EventFullDto> result = eventRepositoryJPA.findByUserSearch(
                 text != null ? "%" + text + "%" : null,
-                categoryRepositoryJPA.findAllById(categories),
+                categories != null ? categoryRepositoryJPA.findAllById(categories) : null,
                 paid,
                 rangeStart != null ? LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
                 rangeEnd != null ? LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
@@ -70,6 +70,7 @@ public class PublicEventServiceImpl implements PublicEventService {
                 page).stream()
                 .map(EventMapper::toEventFullDto)
                 .collect(Collectors.toList());
+
 
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())

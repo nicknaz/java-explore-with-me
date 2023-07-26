@@ -30,7 +30,7 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
 
     @Query(value = "select ev from Event as ev " +
             "where (cast(:text as text) is null or lower(ev.annotation) like :text or lower(ev.description) like :text) " +
-            "and (cast(:categories as integer) is null or ev.category in :categories) " +
+            "and (cast(:categories as int) is null or ev.category in :categories) " +
             "or (cast(:paid as boolean) is null or ev.paid = :paid) " +
             "and (cast(:rangeStart as timestamp) is null or ev.eventDate >= :rangeStart) " +
             "and (cast(:rangeEnd as timestamp) is null or ev.eventDate <= :rangeEnd) " +
