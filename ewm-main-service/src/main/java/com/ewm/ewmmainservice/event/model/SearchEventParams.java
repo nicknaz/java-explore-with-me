@@ -1,6 +1,8 @@
 package com.ewm.ewmmainservice.event.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletRequest;
