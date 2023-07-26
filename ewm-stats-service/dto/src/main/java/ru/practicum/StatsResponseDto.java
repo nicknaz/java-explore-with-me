@@ -1,4 +1,4 @@
-package model;
+package ru.practicum;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class StatsResponseDto {
-    private String app = "ewm-main-service";
+    private String app;
 
     private String uri;
 

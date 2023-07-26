@@ -1,7 +1,7 @@
 package ru.practicum.visit.service;
 
-import model.StatsHitDto;
-import model.StatsResponseDto;
+import ru.practicum.StatsHitDto;
+import ru.practicum.StatsResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
