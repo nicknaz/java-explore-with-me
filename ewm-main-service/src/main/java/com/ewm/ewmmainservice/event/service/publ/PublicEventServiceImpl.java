@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsClient;
+import ru.practicum.StatsHitDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
@@ -68,13 +69,13 @@ public class PublicEventServiceImpl implements PublicEventService {
                 page).stream()
                 .map(EventMapper::toEventFullDto)
                 .collect(Collectors.toList());
-/*
+
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
-                .build());*/
+                .build());
         return result;
     }
 
@@ -94,13 +95,13 @@ public class PublicEventServiceImpl implements PublicEventService {
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
 
 
-/*
+
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
-                .build());*/
+                .build());
         return eventFullDto;
     }
 }

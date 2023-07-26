@@ -2,24 +2,23 @@ package ru.practicum;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Map;
 
 @Service
-public class StatsClient {
-/*
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-*/
+public class StatsClient extends BaseClient{
 
     @Autowired
     public StatsClient(@Value("${stats-server.url}") String serverUrl) {
-        //super(new RestTemplate());
-        //super();
-
+        super(new RestTemplate());
+        //this.rest.setUriTemplateHandler();
     }
-/*
+
     public ResponseEntity<Object> create(StatsHitDto dto) {
         return post("/hit", dto);
     }
@@ -32,5 +31,5 @@ public class StatsClient {
                 "unique", unique
         );
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
-    }*/
+    }
 }
