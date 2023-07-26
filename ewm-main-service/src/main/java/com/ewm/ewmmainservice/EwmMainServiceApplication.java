@@ -17,4 +17,7 @@ public class EwmMainServiceApplication {
         return new RestTemplate();
     }
 
+
+
+
 }
