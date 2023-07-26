@@ -13,6 +13,8 @@ import com.ewm.ewmmainservice.exception.NotFoundedException;
 import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import ru.practicum.StatsHitDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -29,13 +31,15 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
 public class PublicEventServiceImpl implements PublicEventService {
     private EventRepositoryJPA eventRepositoryJPA;
     private UserRepositoryJPA userRepositoryJPA;
     private CategoryRepositoryJPA categoryRepositoryJPA;
     private LocationRepositoryJPA locationRepositoryJPA;
     private StatsClient statsClient;
+
+    @Value("${stats-service.url}")
+    private String url;
 
     @Autowired
     public PublicEventServiceImpl(EventRepositoryJPA eventRepositoryJPA,
@@ -46,6 +50,8 @@ public class PublicEventServiceImpl implements PublicEventService {
         this.userRepositoryJPA = userRepositoryJPA;
         this.categoryRepositoryJPA = categoryRepositoryJPA;
         this.locationRepositoryJPA = locationRepositoryJPA;
+
+        this.statsClient = new StatsClient(url, new RestTemplateBuilder());
     }
 
     @Override
