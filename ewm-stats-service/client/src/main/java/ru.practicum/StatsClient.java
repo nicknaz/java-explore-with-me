@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,7 +17,7 @@ public class StatsClient extends BaseClient {
     @Autowired
     public StatsClient(@Value("${stats-server.url}") String serverUrl) {
         super(new RestTemplate());
-        //this.rest.setUriTemplateHandler();
+        this.rest.setUriTemplateHandler(new DefaultUriBuilderFactory(serverUrl));
     }
 
     public ResponseEntity<Object> create(StatsHitDto dto) {
