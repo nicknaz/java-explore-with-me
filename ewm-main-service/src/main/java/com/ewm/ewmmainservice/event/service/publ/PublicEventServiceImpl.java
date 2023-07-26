@@ -51,6 +51,7 @@ public class PublicEventServiceImpl implements PublicEventService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<EventFullDto> getEventsList(String text, List<Long> categories, Boolean paid, String rangeStart,
                                             String rangeEnd, Boolean onlyAvailable, SortType sort, Pageable page,
                                             HttpServletRequest request) {
@@ -93,8 +94,6 @@ public class PublicEventServiceImpl implements PublicEventService {
         eventRepositoryJPA.save(event);
 
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
-
-
 
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())

@@ -14,7 +14,6 @@ import javax.validation.constraints.NotBlank;
 public class StatsResponse {
     private String app;
 
-    @NotBlank
     private String uri;
 
     private long hits;

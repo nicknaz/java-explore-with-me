@@ -13,7 +13,7 @@ import java.util.List;
 public interface StatsRepositoryJPA extends JpaRepository<StatsHit, Long> {
 
     @Query(value = "select new ru.practicum.visit.model.StatsResponse(s.app, s.uri, " +
-            "count(s.ip)) " +
+            "case when ?4 = true then count(distinct s.ip) else count(s.ip) end) " +
             " from StatsHit as s " +
             "where s.timestamp between ?1 and ?2 " +
             "and (s.uri in (?3) or (?3) is null) " +

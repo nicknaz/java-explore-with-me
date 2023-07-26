@@ -26,7 +26,7 @@ public class StatsHit {
     private String uri;
 
     @Column
-    @Ip
+
     private String ip;
 
     @Column(name = "hit_time")
