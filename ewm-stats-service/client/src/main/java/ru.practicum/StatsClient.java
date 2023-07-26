@@ -3,6 +3,7 @@ package ru.practicum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -18,6 +19,7 @@ public class StatsClient extends BaseClient {
     public StatsClient(@Value("${stats-server.url}") String serverUrl) {
         super(new RestTemplate());
         this.rest.setUriTemplateHandler(new DefaultUriBuilderFactory(serverUrl));
+        this.rest.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
     }
 
     public ResponseEntity<Object> create(StatsHitDto dto) {
