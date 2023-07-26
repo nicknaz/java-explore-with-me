@@ -11,7 +11,6 @@ import com.ewm.ewmmainservice.event.repository.LocationRepositoryJPA;
 import com.ewm.ewmmainservice.exception.BadRequestException;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
 import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
