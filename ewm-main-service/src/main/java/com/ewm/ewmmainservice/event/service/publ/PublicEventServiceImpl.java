@@ -12,14 +12,12 @@ import com.ewm.ewmmainservice.exception.BadRequestException;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
 import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import ru.practicum.StatsHitDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsClient;
+import ru.practicum.StatsHitDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
