@@ -13,12 +13,12 @@ import java.util.List;
 public interface StatsRepositoryJPA extends JpaRepository<StatsHit, Long> {
 
     @Query(value = "select new ru.practicum.visit.model.StatsResponse(s.app, s.uri, " +
-            "case when ?4 = true then count(s.ip) else count(s.ip) end) " +
+            "count(s.ip)) " +
             " from StatsHit as s " +
             "where s.timestamp between ?1 and ?2 " +
             "and (s.uri in (?3) or (?3) is null) " +
             "group by s.app, s.uri " +
-            "order by count(s.ip) desc")
+            "order by count(s) desc")
     List<StatsResponse> findByDate(LocalDateTime start,
                                    LocalDateTime end,
                                    List<String> uris,
