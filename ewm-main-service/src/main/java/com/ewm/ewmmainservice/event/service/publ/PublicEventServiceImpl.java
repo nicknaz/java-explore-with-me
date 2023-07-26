@@ -69,13 +69,13 @@ public class PublicEventServiceImpl implements PublicEventService {
                 page).stream()
                 .map(EventMapper::toEventFullDto)
                 .collect(Collectors.toList());
-
+/*
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
-                .build());
+                .build());*/
         return result;
     }
 
@@ -95,13 +95,13 @@ public class PublicEventServiceImpl implements PublicEventService {
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
 
 
-
+/*
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
-                .build());
+                .build());*/
         return eventFullDto;
     }
 }

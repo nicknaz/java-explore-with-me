@@ -1,5 +1,6 @@
 package ru.practicum;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
