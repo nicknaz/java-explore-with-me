@@ -18,7 +18,7 @@ public interface StatsRepositoryJPA extends JpaRepository<StatsHit, Long> {
             "where s.timestamp between ?1 and ?2 " +
             "and (s.uri in (?3) or (?3) is null) " +
             "group by s.app, s.uri " +
-            "order by count(s.ip) desc")
+            "order by case when ?4 = true then count(distinct s.ip) else s end desc")
     List<StatsResponse> findByDate(LocalDateTime start,
                                    LocalDateTime end,
                                    List<String> uris,
