@@ -37,7 +37,7 @@ public class PublicEventServiceImpl implements PublicEventService {
     private LocationRepositoryJPA locationRepositoryJPA;
     private StatsClient statsClient;
 
-    @Value("${stats-service.url}")
+    @Value("${stats-server.url}")
     private String url;
 
     @Autowired
@@ -49,7 +49,7 @@ public class PublicEventServiceImpl implements PublicEventService {
         this.userRepositoryJPA = userRepositoryJPA;
         this.categoryRepositoryJPA = categoryRepositoryJPA;
         this.locationRepositoryJPA = locationRepositoryJPA;
-
+        log.info("URL: {}", url);
         this.statsClient = new StatsClient(url, new RestTemplateBuilder());
     }
 
