@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsHitDto;
 import ru.practicum.StatsResponseDto;
+import ru.practicum.visit.exception.BadRequestException;
 import ru.practicum.visit.mapper.StatsMapper;
 import ru.practicum.visit.model.StatsHit;
 import ru.practicum.visit.repository.StatsRepositoryJPA;
@@ -33,10 +34,14 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<StatsResponseDto> getStats(LocalDateTime start,
                                            LocalDateTime end,
                                            List<String> uris,
                                            Boolean unique) {
+        if (start.isAfter(end)) {
+            throw new BadRequestException("Date error");
+        }
         return statsRepositoryJPA.findByDate(start, end, uris, unique)
                 .stream()
                 .map(StatsMapper::toStatsResponseDto)

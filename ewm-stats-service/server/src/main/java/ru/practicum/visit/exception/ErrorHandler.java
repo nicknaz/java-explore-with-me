@@ -20,5 +20,14 @@ public class ErrorHandler {
         return Map.of("exception", e.getMessage());
     }
 
+
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> badRequest(final BadRequestException e) {
+        log.debug("Получен статус 400 Bad Request {}", e.getMessage(), e);
+        return Map.of("error", e.getMessage());
+    }
+
+
 }
 
