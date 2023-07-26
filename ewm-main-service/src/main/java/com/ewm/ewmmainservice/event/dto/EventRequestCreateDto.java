@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EventRequestCreateDto {
-    @NotNull
     @NotBlank
     @Size(min = 20, max = 2000)
     private String annotation;
@@ -36,7 +35,6 @@ public class EventRequestCreateDto {
     @Size(min = 3, max = 120)
     private String title;
 
-    @NotNull
     @NotBlank
     @Size(min = 20, max = 7000)
     private String description;

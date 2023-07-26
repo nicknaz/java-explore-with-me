@@ -2,7 +2,9 @@ package com.ewm.ewmmainservice.category.dto.mapper;
 
 import com.ewm.ewmmainservice.category.dto.model.CategoryDto;
 import com.ewm.ewmmainservice.category.model.Category;
+import lombok.experimental.UtilityClass;
 
+@UtilityClass
 public class CategoryMapper {
     public static CategoryDto toCategoryDto(Category category) {
         return CategoryDto.builder()

@@ -1,10 +1,12 @@
 package ru.practicum.visit.mapper;
 
+import lombok.experimental.UtilityClass;
 import ru.practicum.StatsHitDto;
 import ru.practicum.StatsResponseDto;
 import ru.practicum.visit.model.StatsHit;
 import ru.practicum.visit.model.StatsResponse;
 
+@UtilityClass
 public class StatsMapper {
     public static StatsHitDto toStatsHitDto(StatsHit hit) {
         return StatsHitDto.builder()

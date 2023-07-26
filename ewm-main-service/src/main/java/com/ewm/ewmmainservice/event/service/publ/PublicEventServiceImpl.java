@@ -5,6 +5,7 @@ import com.ewm.ewmmainservice.event.dto.EventFullDto;
 import com.ewm.ewmmainservice.event.dto.mapper.EventMapper;
 import com.ewm.ewmmainservice.event.model.Event;
 import com.ewm.ewmmainservice.event.model.EventState;
+import com.ewm.ewmmainservice.event.model.SearchEventParams;
 import com.ewm.ewmmainservice.event.model.SortType;
 import com.ewm.ewmmainservice.event.repository.EventRepositoryJPA;
 import com.ewm.ewmmainservice.event.repository.LocationRepositoryJPA;
@@ -52,29 +53,27 @@ public class PublicEventServiceImpl implements PublicEventService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<EventFullDto> getEventsList(String text, List<Long> categories, Boolean paid, String rangeStart,
-                                            String rangeEnd, Boolean onlyAvailable, SortType sort, Pageable page,
-                                            HttpServletRequest request) {
-        if (categories != null && categoryRepositoryJPA.findAllById(categories).size() == 0) {
+    public List<EventFullDto> getEventsList(SearchEventParams searchEventParams) {
+        if (searchEventParams.getCategories() != null && categoryRepositoryJPA.findAllById(searchEventParams.getCategories()).size() == 0) {
             throw new BadRequestException("Категории не найдены!");
         }
         log.info("check1");
         List<EventFullDto> result = eventRepositoryJPA.findByUserSearch(
-                text != null ? "%" + text + "%" : null,
-                categories != null ? categoryRepositoryJPA.findAllById(categories) : null,
-                paid,
-                rangeStart != null ? LocalDateTime.parse(rangeStart, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
-                rangeEnd != null ? LocalDateTime.parse(rangeEnd, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
-                onlyAvailable != null ? onlyAvailable : false,
-                (sort != null && sort.equals(SortType.VIEWS)) ? true : false,
-                page).stream()
+                searchEventParams.getText() != null ? "%" + searchEventParams.getText() + "%" : null,
+                searchEventParams.getCategories() != null ? categoryRepositoryJPA.findAllById(searchEventParams.getCategories()) : null,
+                searchEventParams.getPaid(),
+                searchEventParams.getRangeStart() != null ? LocalDateTime.parse(searchEventParams.getRangeStart(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
+                searchEventParams.getRangeEnd() != null ? LocalDateTime.parse(searchEventParams.getRangeEnd(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")) : null,
+                searchEventParams.getOnlyAvailable() != null ? searchEventParams.getOnlyAvailable() : false,
+                (searchEventParams.getSort() != null && searchEventParams.getSort().equals(SortType.VIEWS)) ? true : false,
+                searchEventParams.getPage()).stream()
                 .map(EventMapper::toEventFullDto)
                 .collect(Collectors.toList());
 
 
         statsClient.create(StatsHitDto.builder()
-                .ip(request.getRemoteAddr())
-                .uri(request.getRequestURI())
+                .ip(searchEventParams.getRequest().getRemoteAddr())
+                .uri(searchEventParams.getRequest().getRequestURI())
                 .app("ewm-main-service")
                 .timestamp(LocalDateTime.now())
                 .build());

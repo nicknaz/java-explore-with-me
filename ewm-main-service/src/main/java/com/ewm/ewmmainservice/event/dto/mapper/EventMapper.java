@@ -10,9 +10,11 @@ import com.ewm.ewmmainservice.event.model.EventState;
 import com.ewm.ewmmainservice.event.model.Location;
 import com.ewm.ewmmainservice.user.dto.mapper.UserMapper;
 import com.ewm.ewmmainservice.user.model.User;
+import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 
+@UtilityClass
 public class EventMapper {
     public static Event toEventFromNewEventDto(EventRequestCreateDto dto, Location location, Category category, User user) {
         return Event.builder()

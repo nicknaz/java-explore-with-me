@@ -2,6 +2,7 @@ package com.ewm.ewmmainservice.event.controller;
 
 
 import com.ewm.ewmmainservice.event.dto.EventFullDto;
+import com.ewm.ewmmainservice.event.model.SearchEventParams;
 import com.ewm.ewmmainservice.event.model.SortType;
 import com.ewm.ewmmainservice.event.service.publ.PublicEventService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,15 +36,18 @@ public class PublicEventController {
                                                         @RequestParam(defaultValue = "10") Integer size,
                                                         HttpServletRequest request) {
         log.info("public get events");
-        return eventService.getEventsList(text,
-                categories,
-                paid,
-                rangeStart,
-                rangeEnd,
-                onlyAvailable,
-                sort,
-                PageRequest.of(from / size, size),
-                request);
+        return eventService.getEventsList(SearchEventParams
+                .builder()
+                .text(text)
+                .categories(categories)
+                .paid(paid)
+                .rangeStart(rangeStart)
+                .rangeEnd(rangeEnd)
+                .onlyAvailable(onlyAvailable)
+                .sort(sort)
+                .page(PageRequest.of(from / size, size))
+                .request(request)
+                .build());
     }
 
     @GetMapping("/{id}")

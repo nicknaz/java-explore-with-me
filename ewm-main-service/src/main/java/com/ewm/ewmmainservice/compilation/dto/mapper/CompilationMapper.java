@@ -5,10 +5,12 @@ import com.ewm.ewmmainservice.compilation.dto.CompilationRequestDto;
 import com.ewm.ewmmainservice.compilation.model.Compilation;
 import com.ewm.ewmmainservice.event.dto.mapper.EventMapper;
 import com.ewm.ewmmainservice.event.model.Event;
+import lombok.experimental.UtilityClass;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class CompilationMapper {
     public static Compilation toCompilation(CompilationRequestDto compilationRequestDto, List<Event> events) {
         return Compilation.builder()
