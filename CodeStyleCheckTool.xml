@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CodeStyleChecker>
+    <!-- set the "src" directory where the source codes are stored -->
+    <SourceDir>O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-main-service/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/client/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/dto/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/server/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-main-service/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/client/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/dto/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/server/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/dto/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/client/src, O:/YandexPracticum/DIPLOM/java-explore-with-me/ewm-stats-service/server/src</SourceDir>
+    <!-- set the files to check -->
+    <FileInclusion>
+        \main\java\com\ewm\ewmmainservice\event\service\publ\PublicEventServiceImpl.java
+        src/main/java/info/woody/api/intellij/plugin/csct/core/CodeStyleCheckRule.groovy
+        src/main/java/info/woody/api/intellij/plugin/csct/core/CodeStyleCheckRuleExecutor.groovy
+    </FileInclusion>
+    <!-- set the files to exclude files to check -->
+    <FileExclusion>
+        SwaggerDocumentationConfig.java
+    </FileExclusion>
+    <!-- set the file pattern to exclude files to check -->
+    <FileExclusionPattern>^.*(Controller).*$</FileExclusionPattern>
+</CodeStyleChecker>
