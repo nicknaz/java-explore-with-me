@@ -2,6 +2,7 @@ package com.ewm.ewmmainservice.event.service.publ;
 
 import com.ewm.ewmmainservice.event.dto.EventFullDto;
 import com.ewm.ewmmainservice.event.model.SearchEventParams;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,4 +14,6 @@ public interface PublicEventService {
     List<EventFullDto> getEventsList(SearchEventParams searchEventParams);
 
     EventFullDto getEvent(Long id, HttpServletRequest request);
+
+    List<EventFullDto> getFeeds(Long userId, Pageable page, HttpServletRequest request);
 }

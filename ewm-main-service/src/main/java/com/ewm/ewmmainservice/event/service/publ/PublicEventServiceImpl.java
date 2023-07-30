@@ -11,9 +11,11 @@ import com.ewm.ewmmainservice.event.repository.EventRepositoryJPA;
 import com.ewm.ewmmainservice.event.repository.LocationRepositoryJPA;
 import com.ewm.ewmmainservice.exception.BadRequestException;
 import com.ewm.ewmmainservice.exception.NotFoundedException;
+import com.ewm.ewmmainservice.user.model.User;
 import com.ewm.ewmmainservice.user.repository.UserRepositoryJPA;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.StatsClient;
@@ -41,7 +43,7 @@ public class PublicEventServiceImpl implements PublicEventService {
                                  UserRepositoryJPA userRepositoryJPA,
                                  CategoryRepositoryJPA categoryRepositoryJPA,
                                  LocationRepositoryJPA locationRepositoryJPA,
-                                  StatsClient statsClient) {
+                                 StatsClient statsClient) {
         this.eventRepositoryJPA = eventRepositoryJPA;
         this.userRepositoryJPA = userRepositoryJPA;
         this.categoryRepositoryJPA = categoryRepositoryJPA;
@@ -89,6 +91,7 @@ public class PublicEventServiceImpl implements PublicEventService {
             throw new NotFoundedException("Событие не найдено");
         }
 
+
         statsClient.create(StatsHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
@@ -101,5 +104,29 @@ public class PublicEventServiceImpl implements PublicEventService {
 
         EventFullDto eventFullDto = EventMapper.toEventFullDto(event);
         return eventFullDto;
+    }
+
+    @Override
+    public List<EventFullDto> getFeeds(Long userId, Pageable page, HttpServletRequest request) {
+        List<User> tracked = userRepositoryJPA.findById(userId)
+                .orElseThrow(() -> new NotFoundedException("Пользователь не найдено"))
+                .getTracked();
+
+        if (tracked == null || tracked.isEmpty()) {
+            throw new BadRequestException("Вы ни на кого ещё не подписаны!");
+        }
+
+        List<EventFullDto> result = eventRepositoryJPA.findByFeeds(tracked, page).stream()
+                .map(EventMapper::toEventFullDto)
+                .collect(Collectors.toList());
+
+
+        statsClient.create(StatsHitDto.builder()
+                .ip(request.getRemoteAddr())
+                .uri(request.getRequestURI())
+                .app("ewm-main-service")
+                .timestamp(LocalDateTime.now())
+                .build());
+        return result;
     }
 }

@@ -45,7 +45,7 @@ public class AdminUserController {
     public HttpStatus delete(@PathVariable("id") Long userId) {
         log.info("Delete user by userId={}", userId);
         userService.delete(userId);
-        return HttpStatus.OK;
+        return HttpStatus.NO_CONTENT;
     }
 
 }
