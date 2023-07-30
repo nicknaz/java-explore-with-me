@@ -24,7 +24,7 @@ public class PublicUserController {
     public HttpStatus subscribe(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
                              @PathVariable("id") Long trackedId) {
         log.info("{} subscribed to {}", userId, trackedId);
-        userService.subscribe(userId ,trackedId);
+        userService.subscribe(userId, trackedId);
         return HttpStatus.OK;
     }
 

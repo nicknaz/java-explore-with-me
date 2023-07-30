@@ -1,6 +1,5 @@
 package com.ewm.ewmmainservice.user.model;
 
-import com.ewm.ewmmainservice.event.model.Event;
 import lombok.*;
 
 import javax.persistence.*;
