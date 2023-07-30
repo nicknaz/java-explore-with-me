@@ -5,6 +5,8 @@ import com.ewm.ewmmainservice.user.dto.model.UserShortDto;
 import com.ewm.ewmmainservice.user.model.User;
 import lombok.experimental.UtilityClass;
 
+import java.util.ArrayList;
+
 @UtilityClass
 public class UserMapper {
     public static UserDto toUserDto(User newUser) {
@@ -27,6 +29,7 @@ public class UserMapper {
                 .id(dto.getId())
                 .name(dto.getName())
                 .email(dto.getEmail())
+                .tracked(new ArrayList<User>())
                 .build();
     }
 }

@@ -63,3 +63,11 @@ CREATE TABLE IF NOT EXISTS events_compilations
     primary key (event_id, compilation_id),
     constraint key_unique UNIQUE (event_id, compilation_id)
 );
+
+CREATE TABLE IF NOT EXISTS subscriptions
+(
+    user_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    tracked_id BIGINT REFERENCES users(id) ON DELETE CASCADE,
+    primary key (user_id, tracked_id),
+    constraint subscriptions_key_unique UNIQUE (user_id, tracked_id)
+);

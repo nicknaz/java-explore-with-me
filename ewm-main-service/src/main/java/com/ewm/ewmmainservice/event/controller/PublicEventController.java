@@ -54,4 +54,12 @@ public class PublicEventController {
     public EventFullDto getEvent(@PathVariable Long id, HttpServletRequest request) {
         return eventService.getEvent(id, request);
     }
+
+    @GetMapping("/feeds")
+    public List<EventFullDto> getFeeds(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
+                                       @RequestParam(defaultValue = "0") Integer from,
+                                       @RequestParam(defaultValue = "10") Integer size,
+                                        HttpServletRequest request) {
+        return eventService.getFeeds(userId, PageRequest.of(from / size, size), request);
+    }
 }

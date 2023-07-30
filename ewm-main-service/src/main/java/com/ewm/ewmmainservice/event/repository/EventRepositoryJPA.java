@@ -35,11 +35,18 @@ public interface EventRepositoryJPA extends JpaRepository<Event, Long> {
             "and (cast(:rangeStart as timestamp) is null or ev.eventDate >= :rangeStart) " +
             "and (cast(:rangeEnd as timestamp) is null or ev.eventDate <= :rangeEnd) " +
             "and ((ev.confirmedRequest < ev.participantLimit and :onlyAvailable = true) or :onlyAvailable = false) " +
-            "order by (case when :sortViews = true then cast(ev.views as text) else cast(ev.eventDate as text) end) desc")
+            "order by (case when :sortViews = true then ev.views else cast(extract(epoch from ev.eventDate) as integer) end) desc")
     List<Event> findByUserSearch(@Param("text") String text, @Param("categories") List<Category> categories,
                                  @Param("paid") Boolean paid, @Param("rangeStart") LocalDateTime rangeStart,
                                  @Param("rangeEnd") LocalDateTime rangeEnd, @Param("onlyAvailable") Boolean onlyAvailable,
                                  @Param("sortViews") Boolean sortViews, Pageable page);
+
+    @Query(value = "select ev from Event as ev " +
+            "where (cast(:initiators as int) is null or ev.initiator in :initiators) " +
+            " and ev.state = 'PUBLISHED' " +
+            "and (ev.confirmedRequest < ev.participantLimit) " +
+            "order by ev.eventDate desc")
+    List<Event> findByFeeds(@Param("initiators") List<User> initiators, Pageable page);
 
     List<Event> findEventsByCategory(Category category);
 }
